@@ -1,0 +1,15 @@
+.idea
+.git
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+Pedidos.Infra/bin
+Pedidos.Infra/obj
+Pedidos.Dominio/obj
+Pedidos.Dominio/bin
+Pedidos.Aplicacao/obj
+Pedidos.Aplicacao/bin
+Pedidos.API/bin
+Pedidos.API/obj
