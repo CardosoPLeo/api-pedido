@@ -16,7 +16,7 @@ namespace Pedidos.Dominio.Validations
             RuleFor(e => e.Email)
                 .NotNull()
                 .NotEmpty()
-                .EmailAddress();
+                .EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible);
 
             RuleFor(e => e.Enedereco)
                 .NotNull()
