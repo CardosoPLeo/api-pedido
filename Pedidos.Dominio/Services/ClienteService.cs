@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Pedidos.Dominio.Interfaces.Repositories;
 using Pedidos.Dominio.Interfaces.Services;
 using Pedidos.Dominio.Models;
+using Pedidos.Dominio.Validations;
 
 namespace Pedidos.Dominio.Services
 {
@@ -17,7 +18,16 @@ namespace Pedidos.Dominio.Services
 
         public Task CreateAsync(Clientes cliente)
         {
-            throw new System.NotImplementedException();
+            var validacao = new ClienteValidation();
+            var resultado = validacao.Validate(cliente);
+            if(!resultado.IsValid)
+            {
+                foreach (var erro in resultado.Errors)
+                {
+                    //erro.ErrorMessage
+                }
+            }
+             throw new System.NotImplementedException();
         }
 
         public Task UpdateAsync(Clientes cliente)
