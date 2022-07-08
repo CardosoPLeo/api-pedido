@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Pedidos.Dominio.Validations.Base
 {
     public class Response

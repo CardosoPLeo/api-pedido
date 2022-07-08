@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Pedidos.Dominio.Models;
 using Pedidos.Dominio.Validations.Base;
 
