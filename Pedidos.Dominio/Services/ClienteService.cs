@@ -22,23 +22,11 @@ namespace Pedidos.Dominio.Services
         {
             var resposta = new Response();
             var validacao = new ClienteValidation();
-            var resultado = validacao.Validate(cliente);
-            if(!resultado.IsValid)
-            {
-                foreach (var erro in resultado.Errors)
-                {
-                  resposta.Reports.Add(new Report()
-                  {
-                     Codigo = erro.PropertyName,
-                     Mensagem = erro.ErrorMessage
-                  });
-                }
+            var erros= validacao.Validate(cliente).GetErros();
 
-                return resposta;
-            }
-
+            if (erros.Reports.Count > 0)
+                return erros;
             await _clienteRepository.CreateAsync(cliente);
-
             return resposta;
         }
 
