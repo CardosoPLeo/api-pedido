@@ -4,7 +4,7 @@ namespace Pedidos.Dominio.Models
 {
     public class EntidadeBase
     {
-        public Guid Id { get; set; }
+        public string? Id { get; set; }
         public DateTime DataCriacao{ get; set; }
     }
 }
