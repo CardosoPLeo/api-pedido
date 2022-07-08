@@ -4,6 +4,7 @@ using Pedidos.Dominio.Interfaces.Repositories;
 using Pedidos.Dominio.Interfaces.Services;
 using Pedidos.Dominio.Models;
 using Pedidos.Dominio.Validations;
+using Pedidos.Dominio.Validations.Base;
 
 namespace Pedidos.Dominio.Services
 {
@@ -16,38 +17,48 @@ namespace Pedidos.Dominio.Services
             _clienteRepository = clienteRepository;
         }
 
-        public Task CreateAsync(Clientes cliente)
+        public async Task<Response> CreateAsync(Clientes cliente)
         {
+            var resposta = new Response();
             var validacao = new ClienteValidation();
             var resultado = validacao.Validate(cliente);
             if(!resultado.IsValid)
             {
                 foreach (var erro in resultado.Errors)
                 {
-                    //erro.ErrorMessage
+                  resposta.Reports.Add(new Report()
+                  {
+                     Codigo = erro.PropertyName,
+                     Mensagem = erro.ErrorMessage
+                  });
                 }
+
+                return resposta;
             }
-             throw new System.NotImplementedException();
+
+            await _clienteRepository.CreateAsync(cliente);
+
+            return resposta;
         }
 
-        public Task UpdateAsync(Clientes cliente)
+        public Task<Response> DeleteAsync(string clienteId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(string clienteId)
+        public Task<Response<Clientes>> GetById(string clienteId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Task<Clientes> GetById(string clienteId)
+        public Task<Response<List<Clientes>>> ListByFilterAsync(string clienteId = null, string clienteNome = null)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Task<List<Clientes>> ListByFilterAsync(string clienteId = null, string clienteNome = null)
+        public Task<Response> UpdateAsync(Clientes cliente)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

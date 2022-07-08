@@ -1,4 +1,4 @@
-namespace Pedidos.Dominio.Models
+namespace Pedidos.Dominio.Validations.Base
 {
     public class Report
     {
