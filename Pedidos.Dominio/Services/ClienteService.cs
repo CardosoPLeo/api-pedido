@@ -30,24 +30,77 @@ namespace Pedidos.Dominio.Services
             return resposta;
         }
 
-        public Task<Response> DeleteAsync(string clienteId)
+        public async Task<Response> DeleteAsync(string clienteId)
         {
-            throw new NotImplementedException();
+            var resposta = new Response();
+
+            var existe =  await _clienteRepository.ExistByIdAsync(clienteId);
+
+            if (!existe)
+            {
+                resposta.Reports.Add(Report.Create($"Cliente {clienteId} não encontrado"));
+                return resposta;
+            }
+            await _clienteRepository.DeleteAsync(clienteId);
+            return resposta;
         }
 
-        public Task<Response<Clientes>> GetById(string clienteId)
+        public async Task<Response<Clientes>> GetById(string clienteId)
         {
-            throw new NotImplementedException();
+            var resposta = new Response<Clientes>();
+
+            var existe =  await _clienteRepository.ExistByIdAsync(clienteId);
+
+            if (!existe)
+            {
+                resposta.Reports.Add(Report.Create($"Cliente {clienteId} não encontrado"));
+                return resposta;
+            }
+            var data = await _clienteRepository.GetById(clienteId);
+            resposta.Data = data;
+            return resposta;
         }
 
-        public Task<Response<List<Clientes>>> ListByFilterAsync(string clienteId = null, string clienteNome = null)
+        public async Task<Response<List<Clientes>>> ListByFilterAsync(string clienteId = null, string clienteNome = null)
         {
-            throw new NotImplementedException();
+            var resposta = new Response<List<Clientes>>();
+
+            if (string.IsNullOrWhiteSpace(clienteId))
+            {
+                var existe =  await _clienteRepository.ExistByIdAsync(clienteId);
+
+                if (!existe)
+                {
+                    resposta.Reports.Add(Report.Create($"Cliente {clienteId} não encontrado"));
+                    return resposta;
+                }    
+            }
+            
+            var data = await _clienteRepository.ListByFilterAsync(clienteId, clienteNome);
+            resposta.Data = data;
+            return resposta;
         }
 
-        public Task<Response> UpdateAsync(Clientes cliente)
+        public async Task<Response> UpdateAsync(Clientes cliente)
         {
-            throw new NotImplementedException();
+            var resposta = new Response();
+            
+            var validacao = new ClienteValidation();
+            var erros= validacao.Validate(cliente).GetErros();
+
+            if (erros.Reports.Count > 0)
+                return erros;
+
+            var existe =  await _clienteRepository.ExistByIdAsync(cliente.Id);
+
+            if (!existe)
+            {
+                resposta.Reports.Add(Report.Create($"Cliente {cliente.Id} não encontrado"));
+                return resposta;
+            }
+            await _clienteRepository.UpdateAsync(cliente);
+            
+            return resposta;
         }
     }
 }
