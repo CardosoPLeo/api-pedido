@@ -7,6 +7,7 @@ namespace Pedidos.Aplicacao.Interfaces
 {
     public interface IClienteAplicacao
     {
+        
         Task<Response> CreateAsync(CreateClienteRequest cliente);
         Task<Response> UpdateAsync(CreateClienteRequest cliente);
         Task<Response> DeleteAsync(string clienteId);

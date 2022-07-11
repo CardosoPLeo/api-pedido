@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Pedidos.Aplicacao.DataContract.Request.Ciente;
 using Pedidos.Aplicacao.DataContract.Response.Cliente;
 using Pedidos.Aplicacao.Interfaces;
-using Pedidos.Aplicacao.Interfaces.Services;
+using Pedidos.Dominio.Interfaces.Services;
+using Pedidos.Dominio.Validations.Base;
 
 
 namespace Pedidos.Aplicacao.Aplicacao
@@ -14,6 +18,7 @@ namespace Pedidos.Aplicacao.Aplicacao
             _clienteService = clientService;
         }
 
+        
         public async Task<Response> CreateAsync(CreateClienteRequest cliente)
         {
             throw new NotImplementedException();
