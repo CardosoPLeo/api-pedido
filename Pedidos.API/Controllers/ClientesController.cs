@@ -46,7 +46,7 @@ namespace Pedidos.API.Controllers
             if (response.Reports.Any())
                 return UnprocessableEntity(response.Reports);
 
-            return response;
+            return Ok(response);
         }
 
         // PUT: api/Clientes/5
